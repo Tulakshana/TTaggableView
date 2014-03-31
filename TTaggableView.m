@@ -104,14 +104,19 @@
 	// get delta
 	CGPoint previousLocation = [touch previousLocationInView:button];
 	CGPoint location = [touch locationInView:button];
-	CGFloat delta_x = location.x - previousLocation.x;
-	CGFloat delta_y = location.y - previousLocation.y;
     
-	// move button
-	button.center = CGPointMake(button.center.x + delta_x,
-                                button.center.y + delta_y);
     
-    [tags replaceObjectAtIndex:button.tag withObject:[NSValue valueWithCGPoint:button.frame.origin]];
+        CGFloat delta_x = location.x - previousLocation.x;
+        CGFloat delta_y = location.y - previousLocation.y;
+        
+        // move button
+    if (CGRectContainsPoint(taggableFrame, CGPointMake(button.center.x + delta_x,
+                                                       button.center.y + delta_y))) {
+        button.center = CGPointMake(button.center.x + delta_x,
+                                    button.center.y + delta_y);
+        
+        [tags replaceObjectAtIndex:button.tag withObject:[NSValue valueWithCGPoint:button.frame.origin]];
+    }
 }
 
 - (void)infoButtonTapped:(id)sender{
