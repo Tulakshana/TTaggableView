@@ -11,7 +11,6 @@
 @interface TTaggableView : UIView{
     CGRect taggableFrame;
     BOOL moved;
-    NSMutableArray *tags;
 }
 
 @end

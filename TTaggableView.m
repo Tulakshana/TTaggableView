@@ -77,11 +77,6 @@
             [btnInfo addTarget:self action:@selector(wasDragged:withEvent:)
              forControlEvents:UIControlEventTouchDragInside];
             [btnInfo addTarget:self action:@selector(infoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-            if (!tags) {
-                tags = [[NSMutableArray alloc]init];
-            }
-            btnInfo.tag = [tags count];
-            [tags addObject:[NSValue valueWithCGPoint:point]];
             [self addSubview:btnInfo];
         }
     }
@@ -114,15 +109,14 @@
                                                        button.center.y + delta_y))) {
         button.center = CGPointMake(button.center.x + delta_x,
                                     button.center.y + delta_y);
-        
-        [tags replaceObjectAtIndex:button.tag withObject:[NSValue valueWithCGPoint:button.frame.origin]];
+
     }
 }
 
 - (void)infoButtonTapped:(id)sender{
     NSLog(@"info button tapped");
     UIButton *infoButton = (UIButton *)sender;
-    CGPoint point = [[tags objectAtIndex:infoButton.tag] CGPointValue];
+    CGPoint point = infoButton.frame.origin;
     NSLog(@"X: %f, Y: %f",point.x,point.y);
 }
 
